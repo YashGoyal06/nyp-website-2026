@@ -107,15 +107,16 @@ export default function LoginPage() {
                 transition={{ duration: 0.3 }}
               >
                 <div className={styles.formGroup}>
-                  <label className={styles.label}>Email Address</label>
+                  <label className={styles.label}>Serial Number or Email</label>
                   <input
-                    type="email"
+                    type="text"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={styles.input}
-                    placeholder="Enter registered email"
+                    placeholder="e.g. VBNYP1234 or your@vitbhopal.ac.in"
                   />
+                  <p style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '0.4rem' }}>Use the VBNYP serial number from your registration form, or your VIT email address.</p>
                 </div>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>Registration Number</label>

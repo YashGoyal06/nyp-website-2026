@@ -1,0 +1,100 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.deadlineLabel {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  color: #38BDF8;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+}
+
+.timerGrid {
+  display: flex;
+  gap: 1rem;
+}
+
+.timeBox {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.2rem 1.5rem;
+  border-radius: 16px;
+  min-width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.numberWrapper {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #F8FAFC 0%, #94A3B8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94A3B8;
+  margin-top: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.targetInfo {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #64748B;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.expiredContainer {
+  padding: 1rem 2rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 100px;
+  color: #F87171;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+@media (max-width: 640px) {
+  .timerGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .timeBox {
+    min-width: unset;
+    padding: 1rem;
+  }
+  
+  .number {
+    font-size: 2rem;
+  }
+}

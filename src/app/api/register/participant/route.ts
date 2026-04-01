@@ -16,6 +16,12 @@ export async function POST(req: Request) {
     const reason = formData.get('reason') as string;
     const experience = formData.get('experience') as string;
     const comfortableOutside = formData.get('comfortableOutside') === 'true' ? 'Yes' : 'No';
+    const serialNumber = formData.get('serialNumber') as string;
+    
+    // Server-side email domain validation
+    if (!email || !email.endsWith('@vitbhopal.ac.in')) {
+      return NextResponse.json({ success: false, error: 'Only @vitbhopal.ac.in emails are allowed' }, { status: 400 });
+    }
 
     const GOOGLE_CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL;
     const GOOGLE_PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
@@ -47,14 +53,16 @@ export async function POST(req: Request) {
           new Date().toISOString(),
           fullName,
           registrationNumber,
-          `'${email}`,          // Prefix with ' to prevent Excel formula issues
-          `'${phone}`,          // Prefix with ' to prevent phone number formatting
+          `'${email}`,
+          `'${phone}`,
           branch,
           year,
           gender || 'Not Specified',
           reason,
           experience,
           comfortableOutside,
+          '', '', '', '', '', '', '', // admin cols L-R (empty)
+          serialNumber,               // col S — VBNYP serial
         ]]
       }
     });

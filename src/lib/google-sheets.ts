@@ -2,7 +2,7 @@ import { google } from "googleapis";
 
 // Define the shape of our row data
 export interface ParticipantRow {
-  rowIndex: number; // 1-indexed for sheets
+  rowIndex: number;
   timestamp: string;
   fullName: string;
   registrationNumber: string;
@@ -14,7 +14,7 @@ export interface ParticipantRow {
   reason: string;
   experience: string;
   comfortableOutside: string;
-  // Admin fields (cols L-P)
+  // Admin fields (cols L-R)
   screeningSlot?: string;
   status?: string;
   attendance?: string;
@@ -22,6 +22,8 @@ export interface ParticipantRow {
   selectionTimestamp?: string;
   ministry?: string;
   ministryStatus?: string;
+  // Portal serial number (col S)
+  serialNumber?: string;
 }
 
 function getEnv() {
@@ -58,12 +60,12 @@ function getSheetId() {
 
 function parseRow(row: any[], index: number): ParticipantRow {
   return {
-    rowIndex: index + 1, // sheet row number (1-indexed, no header row)
+    rowIndex: index + 1,
     timestamp: row[0] || "",
     fullName: row[1] || "",
     registrationNumber: row[2] || "",
-    email: (row[3] || "").replace(/^'/, ""),    // strip leading apostrophe
-    phone: (row[4] || "").replace(/^'/, ""),    // strip leading apostrophe
+    email: (row[3] || "").replace(/^'/, ""),
+    phone: (row[4] || "").replace(/^'/, ""),
     branch: row[5] || "",
     year: row[6] || "",
     gender: row[7] || "",
@@ -78,6 +80,8 @@ function parseRow(row: any[], index: number): ParticipantRow {
     selectionTimestamp: row[15] || "",
     ministry: row[16] || "",
     ministryStatus: row[17] || "None",
+    // VBNYP serial number (col S=18)
+    serialNumber: row[18] || "",
   };
 }
 
@@ -89,7 +93,7 @@ export async function getAllParticipants(): Promise<ParticipantRow[]> {
     // We fetch from row 2 (skipping header)
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: getSheetId(),
-      range: 'Participants!A1:R',
+      range: 'Participants!A1:S',
     });
 
     const rows = response.data.values || [];
@@ -100,13 +104,13 @@ export async function getAllParticipants(): Promise<ParticipantRow[]> {
   }
 }
 
-export async function getParticipantByCredentials(email: string, regNum: string): Promise<ParticipantRow | null> {
+export async function getParticipantByCredentials(emailOrSerial: string, regNum: string): Promise<ParticipantRow | null> {
   const participants = await getAllParticipants();
-  // Simple check for case-insensitive match
-  const found = participants.find(p =>
-    p.email.toLowerCase() === email.toLowerCase() &&
-    p.registrationNumber === regNum
-  );
+  const found = participants.find(p => {
+    const emailMatch = p.email.toLowerCase() === emailOrSerial.toLowerCase();
+    const serialMatch = p.serialNumber && p.serialNumber.toUpperCase() === emailOrSerial.toUpperCase();
+    return (emailMatch || serialMatch) && p.registrationNumber === regNum;
+  });
   return found || null;
 }
 

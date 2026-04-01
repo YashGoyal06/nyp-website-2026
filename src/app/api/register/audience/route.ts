@@ -5,6 +5,11 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { fullName, registrationNumber, email, phone, branch, year } = body;
+    
+    // Server-side email domain validation
+    if (!email || !email.endsWith('@vitbhopal.ac.in')) {
+      return NextResponse.json({ success: false, error: 'Only @vitbhopal.ac.in emails are allowed' }, { status: 400 });
+    }
 
     // Credentials expected in .env.local
     const GOOGLE_CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL;

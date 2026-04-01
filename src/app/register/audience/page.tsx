@@ -23,7 +23,12 @@ export default function AudienceRegistration() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.consent) return;
-    
+
+    if (!formData.email.endsWith('@vitbhopal.ac.in')) {
+      alert('Please use your official @vitbhopal.ac.in email address.');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const res = await fetch('/api/register/audience', {
@@ -31,7 +36,7 @@ export default function AudienceRegistration() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      
+
       if (res.ok) {
         setIsSubmitted(true);
       } else {
@@ -56,7 +61,7 @@ export default function AudienceRegistration() {
   if (isSubmitted) {
     return (
       <main className={styles.pageWrap}>
-        <motion.div 
+        <motion.div
           className={styles.successCard}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -65,13 +70,13 @@ export default function AudienceRegistration() {
           <h2>Thank you for registering as an audience.</h2>
           <div className={styles.successMessage}>
             <p>You will be notified soon with further instructions via email.</p>
-            <br/>
-            <p>Join the WhatsApp Group for further details :</p>
+            <br />
+            <p>Join the WhatsApp Group for further details</p>
             <a href="https://chat.whatsapp.com/HnkUBcJDLdU0pxtaHsarmZ?mode=hqctswa" target="_blank" rel="noopener noreferrer" className={styles.whatsappLink}>
               Join WhatsApp Group
             </a>
           </div>
-          <Link href="/" className={styles.primaryBtn} style={{marginTop: '2rem'}}>Return Home</Link>
+          <Link href="/" className={styles.primaryBtn} style={{ marginTop: '2rem' }}>Return Home</Link>
         </motion.div>
       </main>
     );
@@ -80,7 +85,7 @@ export default function AudienceRegistration() {
   return (
     <main className={styles.pageWrap}>
       <div className={styles.container}>
-        <motion.div 
+        <motion.div
           className={styles.header}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -89,7 +94,7 @@ export default function AudienceRegistration() {
           <p>Register to witness the parliamentary proceedings and debates live.</p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className={styles.warningAlert}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -104,7 +109,7 @@ export default function AudienceRegistration() {
           </div>
         </motion.div>
 
-        <motion.form 
+        <motion.form
           className={styles.formCard}
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 30 }}
@@ -124,7 +129,16 @@ export default function AudienceRegistration() {
 
             <div className={styles.inputGroup}>
               <label>College Email ID *</label>
-              <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="example@vitbhopal.ac.in" />
+              <input 
+                required 
+                type="email" 
+                name="email" 
+                value={formData.email} 
+                onChange={handleChange} 
+                placeholder="example@vitbhopal.ac.in" 
+                pattern=".*@vitbhopal\.ac\.in$"
+                title="Only @vitbhopal.ac.in emails are allowed"
+              />
             </div>
 
             <div className={styles.inputGroup}>

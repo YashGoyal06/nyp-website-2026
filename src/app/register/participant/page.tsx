@@ -1,13 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./ParticipantRegistration.module.css";
 import Link from "next/link";
 import { CheckCircle, ExternalLink } from "lucide-react";
 
 export default function ParticipantRegistration() {
+  const generateSerialNumber = () => {
+    const digits = Math.floor(1000 + Math.random() * 9000); // 4 random digits
+    return `VBNYP${digits}`;
+  };
+
   const [formData, setFormData] = useState({
+    serialNumber: "",
     fullName: "",
     registrationNumber: "",
     email: "",
@@ -21,12 +27,21 @@ export default function ParticipantRegistration() {
     declaration: false,
   });
 
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, serialNumber: generateSerialNumber() }));
+  }, []);
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.declaration) return;
+
+    if (!formData.email.endsWith('@vitbhopal.ac.in')) {
+      alert('Please use your official @vitbhopal.ac.in email address.');
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -73,11 +88,25 @@ export default function ParticipantRegistration() {
         >
           <CheckCircle className={styles.successIcon} size={64} />
           <h2>Application Submitted!</h2>
-          <div className={styles.successMessage}>
-            <p>There will be a proper screening process for the participants which will be conducted under our coordinators.</p>
-            <p>After the screening you will be informed for further payment process.</p>
-            <br />
 
+          {/* Show Serial Number Prominently */}
+          <div className={styles.serialBlock}>
+            <p className={styles.serialLabel}>Your Login Serial Number</p>
+            <div className={styles.serialDisplay}>{formData.serialNumber}</div>
+            <p className={styles.serialWarning}>⚠️ Save this number! You'll need it to log in along with your VIT Registration Number.</p>
+          </div>
+
+          <div className={styles.successMessage}>
+            <p>
+              If you are shortlisted for the screening process, you will be notified <strong>on this website itself by 4 April 2026, 11:00 PM</strong>. Log in to your profile using your <strong>{formData.serialNumber}</strong> serial number to check your status.
+            </p>
+            <p>
+              The screening round is on <strong>5 April 2026</strong> — so start preparing now!
+            </p>
+            <p>
+              After the screening, if you are selected further, all details such as your assigned ministry, slot, and next steps will also be <strong>available on this website</strong> under your profile.
+            </p>
+            <br />
             <p>Participants need to join the group for further information:</p>
             <a href="https://chat.whatsapp.com/G8wefwBYXc2EmNvtBxnwAA?mode=gi_t" target="_blank" rel="noopener noreferrer" className={styles.whatsappLink}>
               Join WhatsApp Group
@@ -156,6 +185,19 @@ export default function ParticipantRegistration() {
           transition={{ delay: 0.3 }}
         >
           <div className={styles.formGrid}>
+            {/* Serial Number - Read Only */}
+            <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
+              <label>Your Login Serial Number <span style={{color:'#38BDF8'}}>(Save this — needed for login)</span></label>
+              <input
+                readOnly
+                type="text"
+                value={formData.serialNumber}
+                className={styles.serialInput}
+                style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.2rem', letterSpacing: '0.1em', cursor: 'not-allowed', color: '#38BDF8', background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.3)' }}
+              />
+              <p style={{ fontSize: '0.82rem', color: '#64748B', marginTop: '0.4rem' }}>This number is auto-generated. Screenshot or note it down — you cannot recover it later.</p>
+            </div>
+
             <div className={styles.inputGroup}>
               <label>Full Name *</label>
               <input required type="text" name="fullName" value={formData.fullName} onChange={handleChange} placeholder="First Last" />
@@ -168,7 +210,16 @@ export default function ParticipantRegistration() {
 
             <div className={styles.inputGroup}>
               <label>College Email ID *</label>
-              <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="example@vitbhopal.ac.in" />
+              <input 
+                required 
+                type="email" 
+                name="email" 
+                value={formData.email} 
+                onChange={handleChange} 
+                placeholder="example@vitbhopal.ac.in" 
+                pattern=".*@vitbhopal\.ac\.in$"
+                title="Only @vitbhopal.ac.in emails are allowed"
+              />
             </div>
 
             <div className={styles.inputGroup}>
@@ -177,7 +228,7 @@ export default function ParticipantRegistration() {
             </div>
 
             <div className={styles.inputGroup}>
-              <label>Branch *</label>
+              <label>Branch (Example: BAI,BCE etc) *</label>
               <input required type="text" name="branch" value={formData.branch} onChange={handleChange} placeholder="What is your branch?" />
             </div>
 
