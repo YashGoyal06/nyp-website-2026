@@ -77,11 +77,7 @@ export default function ParticipantRegistration() {
             <p>There will be a proper screening process for the participants which will be conducted under our coordinators.</p>
             <p>After the screening you will be informed for further payment process.</p>
             <br />
-            <p>📎 <strong>Next Step:</strong> Upload your 1-minute &quot;Budget 2026&quot; video using the button below:</p>
-            <a href="https://forms.gle/pe6oEKNayKEQWZvY8" target="_blank" rel="noopener noreferrer" className={styles.googleFormBtn}>
-              Upload Documents Here →
-            </a>
-            <br />
+
             <p>Participants need to join the group for further information:</p>
             <a href="https://chat.whatsapp.com/G8wefwBYXc2EmNvtBxnwAA?mode=gi_t" target="_blank" rel="noopener noreferrer" className={styles.whatsappLink}>
               Join WhatsApp Group

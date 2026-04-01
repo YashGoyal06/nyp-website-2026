@@ -1,0 +1,225 @@
+.container {
+  min-height: calc(100vh - 80px);
+  padding: 3rem 2rem;
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.05) 0%, var(--background) 100%);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.logoutBtn {
+  background: rgba(239, 68, 68, 0.1);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logoutBtn:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #F8FAFC;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: #94A3B8;
+  margin-bottom: 0.25rem;
+}
+
+.value {
+  font-size: 1.1rem;
+  color: #E2E8F0;
+  font-weight: 500;
+}
+
+.importantValue {
+  font-size: 1.25rem;
+  color: var(--primary);
+  font-weight: 700;
+  background: rgba(37, 99, 235, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.paymentCard {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.2));
+  border: 1px solid var(--success);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.paymentTitle {
+  font-size: 1.5rem;
+  color: var(--success);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.paymentText {
+  color: #D1D5DB;
+  margin-bottom: 1.5rem;
+}
+
+.countdown {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-family: monospace;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.paymentBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--success);
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+}
+
+.paymentBtn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
+}
+
+.expiredCard {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--error);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.expiredTitle {
+  font-size: 1.5rem;
+  color: var(--error);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.loadingWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 1rem;
+  color: #94A3B8;
+}
+
+.bigSpinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(37, 99, 235, 0.2);
+  border-right-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  text-transform: uppercase;
+}
+
+.badge.Pending {
+  background: rgba(245, 158, 11, 0.2);
+  color: #FBBF24;
+}
+
+.badge.Selected {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+}
+
+.badge.Rejected {
+  background: rgba(239, 68, 68, 0.2);
+  color: #F87171;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
