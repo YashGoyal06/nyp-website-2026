@@ -131,11 +131,9 @@ export default function ContactPage() {
                   exit={{ opacity: 0 }}
                 >
                   <CheckCircle size={56} className={styles.successIcon} />
-                  <h2>Message Sent!</h2>
+                  <h2>Details Saved!</h2>
                   <p>
-                    Your message has been forwarded to{" "}
-                    <strong>nss@vitbhopal.ac.in</strong>. We&apos;ll get back to you
-                    within 24–48 hours.
+                    Your message has been recorded successfully. Our team will get back to you soon.
                   </p>
                   <button
                     className={styles.resetBtn}

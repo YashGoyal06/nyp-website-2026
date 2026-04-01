@@ -4,8 +4,20 @@ import { motion } from "framer-motion";
 import styles from "./Team.module.css";
 
 const WEBSITE_TEAM = [
-  { name: "Yash Goyal", role: "Developer", img: "/3.jpeg" },
-  { name: "Pratyush Dubey", role: "Developer", img: "/2.jpeg" },
+  {
+    name: "Yash Goyal",
+    role: "Developer",
+    img: "/3.jpeg",
+    instagram: "https://www.instagram.com/__yash__06__?igsh=MTZqOGZjM281aDk2cQ==",
+    linkedin: "https://www.linkedin.com/in/yashgoyal06?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+  },
+  {
+    name: "Pratyush Dubey",
+    role: "Developer",
+    img: "/2.jpeg",
+    instagram: "https://www.instagram.com/pratyush__dubey/",
+    linkedin: "https://www.linkedin.com/in/dubeypratyush/",
+  },
   { name: "Aditya Jain", role: "Developer", img: "/1.jpeg" },
 ];
 
@@ -16,7 +28,15 @@ const PROGRAM_OFFICERS = [
   { name: "Ms. Dipti Bhojwani", role: "Program Officer", img: "7.jpg" },
 ];
 
-function TeamCard({ member, index }: { member: { name: string; role: string; img: string }; index: number }) {
+interface TeamMember {
+  name: string;
+  role: string;
+  img: string;
+  instagram?: string;
+  linkedin?: string;
+}
+
+function TeamCard({ member, index }: { member: TeamMember; index: number }) {
   const avatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(member.name)}&backgroundType=gradientLinear&backgroundColor=b6e3f4,c0aede`;
 
   return (
@@ -45,6 +65,29 @@ function TeamCard({ member, index }: { member: { name: string; role: string; img
         <h3 className={styles.memberName}>{member.name}</h3>
         <span className={styles.memberRole}>{member.role}</span>
       </div>
+
+      {(member.instagram || member.linkedin) && (
+        <div className={styles.socials}>
+          {member.instagram && (
+            <a href={member.instagram} target="_blank" rel="noopener noreferrer" className={styles.socialBtn}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.socialIcon}>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+          )}
+          {member.linkedin && (
+            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className={styles.socialBtn}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.socialIcon}>
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          )}
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -77,6 +120,27 @@ export default function TeamPage() {
           </p>
         </motion.div>
 
+        {/* Program Officers — Now first */}
+        <section className={styles.section}>
+          <motion.div
+            className={styles.sectionHeader}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <div className={styles.sectionBadge}>🎓</div>
+            <h2 className={styles.sectionTitle}>Program Officers</h2>
+            <div className={styles.sectionDivider} />
+          </motion.div>
+
+          <div className={styles.grid}>
+            {PROGRAM_OFFICERS.map((member, i) => (
+              <TeamCard key={member.name} member={member} index={i} />
+            ))}
+          </div>
+        </section>
+
         {/* Website Development Team */}
         <section className={styles.section}>
           <motion.div
@@ -93,27 +157,6 @@ export default function TeamPage() {
 
           <div className={styles.grid}>
             {WEBSITE_TEAM.map((member, i) => (
-              <TeamCard key={member.name} member={member} index={i} />
-            ))}
-          </div>
-        </section>
-
-        {/* Program Officers */}
-        <section className={styles.section}>
-          <motion.div
-            className={styles.sectionHeader}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <div className={styles.sectionBadge}>🎓</div>
-            <h2 className={styles.sectionTitle}>Program Officers</h2>
-            <div className={styles.sectionDivider} />
-          </motion.div>
-
-          <div className={styles.grid}>
-            {PROGRAM_OFFICERS.map((member, i) => (
               <TeamCard key={member.name} member={member} index={i} />
             ))}
           </div>

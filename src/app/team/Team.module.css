@@ -213,3 +213,39 @@
     max-width: 100%;
   }
 }
+
+.socials {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  justify-content: center;
+}
+
+.socialBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94A3B8;
+  transition: all 0.3s ease;
+}
+
+.socialBtn:hover {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.3);
+  color: #38BDF8;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.socialIcon {
+  width: 18px;
+  height: 18px;
+}
