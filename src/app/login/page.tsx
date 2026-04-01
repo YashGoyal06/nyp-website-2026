@@ -116,7 +116,7 @@ export default function LoginPage() {
                     className={styles.input}
                     placeholder="e.g. VBNYP1234"
                   />
-                  <p style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '0.4rem' }}>Use the VBNYP serial number from your registration form, or your VIT email address.</p>
+                  <p style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '0.4rem' }}>Use the VBNYP serial number from your registration form.</p>
                 </div>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>Registration Number</label>
