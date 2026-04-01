@@ -14,7 +14,7 @@ const galleryItems = [
 
 export default function RecapGallery() {
   return (
-    <section className={styles.recapSection}>
+    <section id="recap" className={styles.recapSection}>
       <div className={styles.container}>
         <motion.div 
           className={styles.header}
