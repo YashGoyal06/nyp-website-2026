@@ -107,14 +107,14 @@ export default function LoginPage() {
                 transition={{ duration: 0.3 }}
               >
                 <div className={styles.formGroup}>
-                  <label className={styles.label}>Serial Number or Email</label>
+                  <label className={styles.label}>Serial Number</label>
                   <input
                     type="text"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={styles.input}
-                    placeholder="e.g. VBNYP1234 or your@vitbhopal.ac.in"
+                    placeholder="e.g. VBNYP1234"
                   />
                   <p style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '0.4rem' }}>Use the VBNYP serial number from your registration form, or your VIT email address.</p>
                 </div>
@@ -126,7 +126,7 @@ export default function LoginPage() {
                     value={regNum}
                     onChange={(e) => setRegNum(e.target.value)}
                     className={styles.input}
-                    placeholder="e.g. VBNYP2026-XXXX"
+                    placeholder="e.g. 24XXXXXXX"
                   />
                 </div>
               </motion.div>
