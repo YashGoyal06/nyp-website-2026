@@ -169,40 +169,48 @@ export async function updateParticipantAdminData(
   }
 }
 
-export async function isDuplicateRegistration(sheetName: string, email: string, regNum: string): Promise<string | null> {
+export async function isDuplicateRegistration(currentSheet: string, email: string, regNum: string): Promise<string | null> {
   try {
     const auth = getAuth();
     const sheets = google.sheets({ version: 'v4', auth });
     
-    // Fetch relevant columns to check for duplicates
-    // Column C is registrationNumber (index 2), Column D is email (index 3)
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: getSheetId(),
-      range: `${sheetName}!C:D`,
-    });
+    // Normalize inputs
+    const emailLower = email.trim().toLowerCase();
+    const regNumUpper = regNum.trim().toUpperCase();
 
-    const rows = response.data.values || [];
-    // Skip header row
-    const dataRows = rows.slice(1);
+    // We check BOTH sheets regardless of where the request came from
+    const sheetsToCheck = ['Participants', 'Audience'];
 
-    const emailLower = email.toLowerCase();
-    const regNumUpper = regNum.toUpperCase();
+    for (const sheetName of sheetsToCheck) {
+      // Fetch columns C and D (Registration Number and Email)
+      const response = await sheets.spreadsheets.values.get({
+        spreadsheetId: getSheetId(),
+        range: `${sheetName}!C:D`,
+      });
 
-    for (const row of dataRows) {
-      const rowRegNum = (row[0] || "").toString().toUpperCase();
-      const rowEmail = (row[1] || "").toString().replace(/^'/, "").toLowerCase();
+      const rows = response.data.values || [];
+      // Skip header row if it exists
+      const dataRows = (rows.length > 0 && rows[0][0]?.toString().toLowerCase().includes('reg')) 
+        ? rows.slice(1) 
+        : rows;
 
-      if (rowRegNum === regNumUpper) {
-        return "This Registration Number is already registered.";
-      }
-      if (rowEmail === emailLower) {
-        return "This Email ID is already registered.";
+      for (const row of dataRows) {
+        const rowRegNum = (row[0] || "").toString().trim().toUpperCase();
+        const rowEmail = (row[1] || "").toString().replace(/^'/, "").trim().toLowerCase();
+
+        if (rowRegNum === regNumUpper) {
+          return `Registration Number is already registered in ${sheetName}.`;
+        }
+        if (rowEmail === emailLower) {
+          return `Email ID is already registered in ${sheetName}.`;
+        }
       }
     }
 
     return null;
   } catch (error) {
-    console.error(`Error checking duplicates in ${sheetName}:`, error);
-    return null; // On error, we proceed (safest for user)
+    // If the error is "Sheet not found", we skip that sheet
+    console.error(`Error checking duplicates:`, error);
+    return null; 
   }
 }
