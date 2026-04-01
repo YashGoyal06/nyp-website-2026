@@ -168,3 +168,41 @@ export async function updateParticipantAdminData(
     return false;
   }
 }
+
+export async function isDuplicateRegistration(sheetName: string, email: string, regNum: string): Promise<string | null> {
+  try {
+    const auth = getAuth();
+    const sheets = google.sheets({ version: 'v4', auth });
+    
+    // Fetch relevant columns to check for duplicates
+    // Column C is registrationNumber (index 2), Column D is email (index 3)
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: getSheetId(),
+      range: `${sheetName}!C:D`,
+    });
+
+    const rows = response.data.values || [];
+    // Skip header row
+    const dataRows = rows.slice(1);
+
+    const emailLower = email.toLowerCase();
+    const regNumUpper = regNum.toUpperCase();
+
+    for (const row of dataRows) {
+      const rowRegNum = (row[0] || "").toString().toUpperCase();
+      const rowEmail = (row[1] || "").toString().replace(/^'/, "").toLowerCase();
+
+      if (rowRegNum === regNumUpper) {
+        return "This Registration Number is already registered.";
+      }
+      if (rowEmail === emailLower) {
+        return "This Email ID is already registered.";
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error(`Error checking duplicates in ${sheetName}:`, error);
+    return null; // On error, we proceed (safest for user)
+  }
+}

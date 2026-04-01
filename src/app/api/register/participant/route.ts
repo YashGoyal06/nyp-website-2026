@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
+import { isDuplicateRegistration } from '@/lib/google-sheets';
 
 export async function POST(req: Request) {
   try {
@@ -21,6 +22,12 @@ export async function POST(req: Request) {
     // Server-side email domain validation
     if (!email || !email.endsWith('@vitbhopal.ac.in')) {
       return NextResponse.json({ success: false, error: 'Only @vitbhopal.ac.in emails are allowed' }, { status: 400 });
+    }
+
+    // Check for duplicate registration
+    const duplicateError = await isDuplicateRegistration('Participants', email, registrationNumber);
+    if (duplicateError) {
+      return NextResponse.json({ success: false, error: duplicateError }, { status: 400 });
     }
 
     const GOOGLE_CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL;

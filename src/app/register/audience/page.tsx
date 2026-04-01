@@ -40,7 +40,8 @@ export default function AudienceRegistration() {
       if (res.ok) {
         setIsSubmitted(true);
       } else {
-        alert('Server returned an error. Please try again.');
+        const errorData = await res.json();
+        alert(errorData.error || 'Server returned an error. Please try again.');
       }
     } catch (err) {
       alert('Network error. Please try again.');

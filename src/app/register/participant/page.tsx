@@ -60,7 +60,8 @@ export default function ParticipantRegistration() {
       if (res.ok) {
         setIsSubmitted(true);
       } else {
-        alert('Registration failed on server. Please report this error.');
+        const errorData = await res.json();
+        alert(errorData.error || 'Registration failed on server. Please report this error.');
       }
     } catch (err) {
       alert('Network or timeout error. Please try again.');
