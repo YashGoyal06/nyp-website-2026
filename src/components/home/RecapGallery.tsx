@@ -7,7 +7,7 @@ import styles from "./RecapGallery.module.css";
 const galleryItems = [
   { id: 1, src: "/recap_1.jpeg" },
   { id: 2, src: "/recap_2.jpeg" },
-  { id: 3, src: "/recap_3.jpeg" },
+  { id: 3, src: "/recap_3_v2.jpeg" },
   { id: 4, src: "/recap_4.jpeg" },
 ];
 
