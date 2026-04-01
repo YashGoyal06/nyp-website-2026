@@ -94,6 +94,8 @@ export default function ProfilePage() {
   }
 
   const isSelected = participant.ministryStatus === "Selected";
+  const hasRound1Result = participant.status === "Selected" || participant.status === "Not Selected";
+  const hasMinistryResult = participant.ministryStatus === "Selected" || participant.ministryStatus === "Not Selected";
   const statusClass = participant.status as keyof typeof styles;
   const ministryStatusClass = participant.ministryStatus as keyof typeof styles;
 
@@ -130,53 +132,71 @@ export default function ProfilePage() {
             <span className={styles.label}>Institution / Branch</span>
             <span className={styles.value}>{participant.branch} ({participant.year})</span>
           </div>
-        </div>
-
-        {/* Status Info */}
-        <div className={styles.card}>
-          <h2 className={styles.cardTitle}><CheckCircle size={20} /> Application Status</h2>
-
           <div className={styles.infoRow}>
-            <span className={styles.label}>Round 1 Status</span>
-            <div>
-              <span className={`${styles.badge} ${styles[statusClass]}`}>
-                {participant.status || "None"}
-              </span>
-            </div>
-          </div>
-
-          <div className={styles.infoRow} style={{ marginTop: '1.5rem' }}>
-            <span className={styles.label}>Ministry Selection</span>
-            <div>
-              <span className={`${styles.badge} ${styles[ministryStatusClass]}`}>
-                {participant.ministryStatus || "None"}
-              </span>
-            </div>
-          </div>
-
-          {isSelected && participant.ministry && (
-            <div className={styles.infoRow} style={{ marginTop: '1.5rem' }}>
-              <span className={styles.label}>Assigned Ministry</span>
-              <span className={styles.importantValue}>
-                {participant.ministry}
-              </span>
-            </div>
-          )}
-
-          <div className={styles.infoRow} style={{ marginTop: '1.5rem' }}>
-            <span className={styles.label}>Assigned Screening Slot</span>
-            <span className={styles.importantValue}>
-              {participant.screeningSlot || "Not assigned yet"}
-            </span>
-          </div>
-
-          <div className={styles.infoRow} style={{ marginTop: '1.5rem' }}>
             <span className={styles.label}>Date of Registration</span>
             <span className={styles.value}>
               {new Date(participant.timestamp).toLocaleString()}
             </span>
           </div>
         </div>
+
+        {/* Application Status Card — only shown once Round 1 result is set */}
+        {hasRound1Result ? (
+          <div className={styles.card}>
+            <h2 className={styles.cardTitle}><CheckCircle size={20} /> Application Status</h2>
+
+            <div className={styles.infoRow}>
+              <span className={styles.label}>Round 1 Status</span>
+              <div>
+                <span className={`${styles.badge} ${styles[statusClass]}`}>
+                  {participant.status}
+                </span>
+              </div>
+            </div>
+
+            {/* Screening slot — only if assigned */}
+            {participant.screeningSlot && (
+              <div className={styles.infoRow} style={{ marginTop: '1.5rem' }}>
+                <span className={styles.label}>Assigned Screening Slot</span>
+                <span className={styles.importantValue}>
+                  {participant.screeningSlot}
+                </span>
+              </div>
+            )}
+
+            {/* Ministry section — only if ministry result is set */}
+            {hasMinistryResult && (
+              <>
+                <div className={styles.infoRow} style={{ marginTop: '1.5rem' }}>
+                  <span className={styles.label}>Ministry Selection</span>
+                  <div>
+                    <span className={`${styles.badge} ${styles[ministryStatusClass]}`}>
+                      {participant.ministryStatus}
+                    </span>
+                  </div>
+                </div>
+
+                {isSelected && participant.ministry && (
+                  <div className={styles.infoRow} style={{ marginTop: '1.5rem' }}>
+                    <span className={styles.label}>Assigned Ministry</span>
+                    <span className={styles.importantValue}>
+                      {participant.ministry}
+                    </span>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        ) : (
+          /* Pending state — shown while awaiting Round 1 result */
+          <div className={styles.card} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '1rem', padding: '3rem 2rem' }}>
+            <Clock size={40} style={{ color: '#64748B' }} />
+            <h2 className={styles.cardTitle} style={{ margin: 0 }}>Result Awaited</h2>
+            <p style={{ color: '#64748B', fontSize: '0.95rem', lineHeight: 1.6, maxWidth: 280 }}>
+              Your application is under review. Round 1 results will be announced by <strong style={{ color: '#CBD5E1' }}>4 April 2026, 11:00 PM</strong>. Check back here to see your status.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Payment Card Logic */}
