@@ -67,7 +67,8 @@ export default function Navbar() {
       <nav ref={navRef} className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Link href="/">
+            <Link href="/" className={styles.logoLink}>
+              <img src="/logo.png" alt="NSS Logo" className={styles.logoImg} />
               <span className={styles.logoText}>VBNYP 2026</span>
             </Link>
           </div>

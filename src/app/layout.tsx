@@ -12,6 +12,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Viksit Bharat Youth Parliament 2026",
   description: "Official portal for Viksit Bharat Youth Parliament 2026 organized by NSS Unit, VIT Bhopal University.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
