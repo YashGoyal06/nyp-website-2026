@@ -5,18 +5,18 @@ import styles from "./Team.module.css";
 
 const WEBSITE_TEAM = [
   {
-    name: "Yash Goyal",
-    role: "Developer",
-    img: "/3.jpeg",
-    instagram: "https://www.instagram.com/__yash__06__?igsh=MTZqOGZjM281aDk2cQ==",
-    linkedin: "https://www.linkedin.com/in/yashgoyal06?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-  },
-  {
     name: "Pratyush Dubey",
     role: "Developer",
     img: "/2.jpeg",
     instagram: "https://www.instagram.com/pratyush__dubey/",
     linkedin: "https://www.linkedin.com/in/dubeypratyush/",
+  },
+  {
+    name: "Yash Goyal",
+    role: "Developer",
+    img: "/3.jpeg",
+    instagram: "https://www.instagram.com/__yash__06__?igsh=MTZqOGZjM281aDk2cQ==",
+    linkedin: "https://www.linkedin.com/in/yashgoyal06?utm_source=share_via&utm_content=profile&utm_medium=member_android",
   },
   { name: "Aditya Jain", role: "Developer", img: "/1.jpeg" },
 ];
