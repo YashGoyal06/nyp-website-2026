@@ -160,7 +160,7 @@ export default function ParticipantRegistration() {
             <div className={styles.uploadNoticeText}>
               <h3>Upload Your Documents Separately</h3>
               <p>
-                After filling this form, you must also submit your <strong>1-minute &quot;Budget 2026&quot; video</strong> — via the Google Form below.
+                <strong>Participants may also upload any past work</strong> via the Documents Form linked below, if available. If they do not have any past work to share, that is completely fine.
               </p>
               <p className={styles.uploadNoticeWarning}>
                 ⚠️ Registration will be considered incomplete without document submission.
