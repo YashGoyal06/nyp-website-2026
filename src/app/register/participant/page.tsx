@@ -162,9 +162,6 @@ export default function ParticipantRegistration() {
               <p>
                 <strong>Participants may also upload any past work</strong> via the Documents Form linked below, if available. If they do not have any past work to share, that is completely fine.
               </p>
-              <p className={styles.uploadNoticeWarning}>
-                ⚠️ Registration will be considered incomplete without document submission.
-              </p>
             </div>
           </div>
           <a
