@@ -141,7 +141,7 @@ export default function ParticipantRegistration() {
             <h3>⚠️ Important Event Information</h3>
             <ul>
               <li><strong>Opportunities:</strong> Selected candidates will get a chance to represent VIT BHOPAL University at state level of National Youth Parliament.</li>
-              <li><strong>Mandatory Video:</strong> A 1-minute video on <strong>&quot;Budget 2026&quot;</strong> is required — upload it via the Documents Form linked below.</li>
+              <li><strong>Participants may also upload any past work</strong> via the Documents Form linked below, if available. If they do not have any past work to share, that is completely fine.</li>
               <li><strong>OD Eligibility:</strong> Participants will be eligible for OD from 8:30 AM to 4:20 PM on the event day (8 April 2026).</li>
               <li>Only College Email IDs (@vitbhopal.ac.in) are permitted for login.</li>
             </ul>
