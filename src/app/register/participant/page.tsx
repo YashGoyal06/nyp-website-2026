@@ -4,9 +4,12 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import styles from "./ParticipantRegistration.module.css";
 import Link from "next/link";
-import { CheckCircle, ExternalLink } from "lucide-react";
+import { CheckCircle, ExternalLink, XCircle } from "lucide-react";
 
 export default function ParticipantRegistration() {
+  // 🔴 Set this to false if you want to open registrations again
+  const REGISTRATIONS_CLOSED = true;
+
   const generateSerialNumber = () => {
     const digits = Math.floor(1000 + Math.random() * 9000); // 4 random digits
     return `VBNYP${digits}`;
@@ -79,9 +82,43 @@ export default function ParticipantRegistration() {
     }
   };
 
+  // 🔴 REGISTRATIONS CLOSED VIEW
+  if (REGISTRATIONS_CLOSED) {
+    return (
+      <main className={styles.pageWrap}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.closedCard}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className={styles.closedIconWrapper}>
+              <XCircle className={styles.closedIcon} size={72} />
+            </div>
+            <h2>Registrations Closed</h2>
+            <div className={styles.closedMessage}>
+              <p>
+                Thank you for the overwhelming response! The participant registration window for the National Youth Parliament simulation is now officially closed.
+              </p>
+              <p>
+                If you have already registered, please keep an eye on the website and WhatsApp group for further updates regarding the screening process.
+              </p>
+            </div>
+            <Link href="/" className={styles.primaryBtn} style={{ marginTop: '1.5rem' }}>
+              Return to Homepage
+            </Link>
+          </motion.div>
+        </div>
+      </main>
+    );
+  }
+
+  // ... (Rest of your existing code for when it's submitted or open)
   if (isSubmitted) {
     return (
       <main className={styles.pageWrap}>
+        {/* Your existing submitted code */}
         <motion.div
           className={styles.successCard}
           initial={{ opacity: 0, scale: 0.9 }}
@@ -120,7 +157,7 @@ export default function ParticipantRegistration() {
   }
 
   return (
-    <main className={styles.pageWrap}>
+      <main className={styles.pageWrap}>
       <div className={styles.container}>
         <motion.div
           className={styles.header}
