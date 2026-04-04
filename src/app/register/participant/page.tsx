@@ -99,7 +99,7 @@ export default function ParticipantRegistration() {
             <h2>Registrations Closed</h2>
             <div className={styles.closedMessage}>
               <p>
-                Thank you for the overwhelming response! The participant registration window for the National Youth Parliament simulation is now officially closed.
+                Thank you for the overwhelming response! The participant registration window for the National Youth Parliament 2026 is now officially closed.
               </p>
               <p>
                 If you have already registered, please keep an eye on the website and WhatsApp group for further updates regarding the screening process.
